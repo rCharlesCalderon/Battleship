@@ -1,4 +1,41 @@
 body {
-    background: black;
-    background-color: black;
+    display: flex;
+    height: 100vh;
+  background-color: grey;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+*{
+    border: 1px black solid;
+}
+
+.left-side{
+    display: grid;
+    height: 66%;
+    width: 40%;
+     flex-direction: column;
+}
+
+.right-side{
+    display: grid;
+    height: 66%;
+    width: 40%;
+      grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+      
+
+}
+.rows { 
+   display: grid;
+    grid-template-columns: repeat(10,1fr);
+}
+.columns {
+   height: 100%;
+    width: 100%;
+
+}
+
+.grid {
+    height: 100%;
+border: 1px blueviolet solid;
 }
