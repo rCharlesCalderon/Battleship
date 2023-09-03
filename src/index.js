@@ -23,43 +23,42 @@ let ship = (length) => {
 let gameBoard = () => {
   //place ships
   function placeShips(coords, player) {}
-  //recieve an attack
-  //keep track of missed attacks
-  //report which ships have been sunkl
+  function checkAvailablity(row, column) {
+    //row and column divs
+    let rowCoordinate = row.getAttribute("row");
+    let columnCoordinate = column.getAttribute("column");
+    console.log(rowCoordinate, columnCoordinate);
+    //if (idk if container has true allow click idk) {
+    //  column.addEventListener("click", () => {
+
+    // });
+    //}
+  }
   let ships = [ship(2), ship(3), ship(3), ship(4), ship(5)];
 
-  return { placeShips, ships };
+  return { placeShips, ships, checkAvailablity };
 };
 
 (function mainGame() {
   //event listener when user presses on a grid cell
-  getCoords();
+  hoverEvent();
 })();
 
-function startGame(coords) {
-  let board = gameBoard();
-  let player = board;
-  console.log(coords);
-  board.placeShips(coords, player);
-  console.log(player.ships[0]);
-}
-
-function getCoords() {
+function hoverEvent() {
   let leftContainer = document.querySelector(".left-side");
-  let leftContainerRows = leftContainer.querySelectorAll(".rows");
-  leftContainerRows.forEach((row) => {
-    let columns = row.querySelectorAll(".columns");
+  let rows = leftContainer.querySelectorAll(".rows");
+  rows.forEach((rowParent) => {
+    let columns = rowParent.querySelectorAll(".columns");
     columns.forEach((column) => {
-      column.addEventListener("click", () => {
-        let rowAttribute = row.getAttribute("row");
-        let columnAttribute = column.getAttribute("column");
-        let coords = [rowAttribute, columnAttribute];
-        startGame(coords, column);
-        return coords;
+      column.addEventListener("mouseover", () => {
+        //Idk check to see if the cell has an object idk
+        gameBoard().checkAvailablity(rowParent, column);
       });
     });
   });
 }
+
+
 
 function makeGrid() {
   let letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
