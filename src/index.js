@@ -1,6 +1,5 @@
 import "./style.css";
 
-makeGrid();
 let ship = (length) => {
   let hits = 0;
   let sunk = false;
@@ -21,59 +20,44 @@ let ship = (length) => {
 };
 
 let gameBoard = () => {
-  //place ships
-  function placeShips(coords, player) {}
-  function checkAvailablity(row, column) {
-    //row and column divs
-    let rowCoordinate = row.getAttribute("row");
-    let columnCoordinate = column.getAttribute("column");
-    console.log(rowCoordinate, columnCoordinate);
-    //if (idk if container has true allow click idk) {
-    //  column.addEventListener("click", () => {
-
-    // });
-    //}
-  }
-  let ships = [ship(2), ship(3), ship(3), ship(4), ship(5)];
-
-  return { placeShips, ships, checkAvailablity };
-};
-
-(function mainGame() {
-  //event listener when user presses on a grid cell
-  hoverEvent();
-})();
-
-function hoverEvent() {
-  let leftContainer = document.querySelector(".left-side");
-  let rows = leftContainer.querySelectorAll(".rows");
-  rows.forEach((rowParent) => {
-    let columns = rowParent.querySelectorAll(".columns");
-    columns.forEach((column) => {
-      column.addEventListener("mouseover", () => {
-        //Idk check to see if the cell has an object idk
-        gameBoard().checkAvailablity(rowParent, column);
+  let missed = 0;
+  let placeShip = (coords) => {};
+  let receiveAttack = () => {};
+  let initualizeBoard = (playerPiece) => {
+    let gridContainer = document.querySelector(".left-side").childNodes;
+    gridContainer.forEach((node) => {
+      node.addEventListener("mouseover", () => {
+        //look through the grid container array and grab the closest divs with the matching ending number
+        console.log(node);
+        console.log(playerPiece);
       });
     });
-  });
-}
+  };
+  return { missed, placeShip, receiveAttack, initualizeBoard };
+};
 
-
+let player = () => {
+  let ships = [ship(1), ship(2), ship(3), ship(4), ship(5)];
+  let attack = () => {};
+  return { ships, attack };
+};
 
 function makeGrid() {
-  let letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
   let leftContainer = document.querySelector(".left-side");
-  for (let row = 1; row <= 10; row++) {
-    let rows = document.createElement("div");
-    rows.setAttribute(`row`, `${row}`);
-    rows.classList.add("rows");
-
-    for (let column = 0; column < 10; column++) {
-      let columns = document.createElement("div");
-      columns.classList.add("columns");
-      rows.appendChild(columns);
-      columns.setAttribute("column", letters[column]);
-      leftContainer.appendChild(rows);
+  let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+  let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+  for (let l = 0; l < letters.length; l++) {
+    for (let n = 0; n < numbers.length; n++) {
+      let cells = document.createElement("div");
+      cells.classList.add(`${letters[l]}${numbers[n]}`);
+      leftContainer.appendChild(cells);
     }
   }
 }
+
+let mainGame = (() => {
+  makeGrid();
+  let playerBoard = gameBoard();
+  let playerPiece = player();
+  playerBoard.initualizeBoard(playerPiece);
+})();
