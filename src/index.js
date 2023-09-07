@@ -24,10 +24,13 @@ let gameBoard = () => {
   let placeShip = (coords) => {};
   let receiveAttack = () => {};
   let initualizeBoard = (playerPiece) => {
-    let gridContainer = document.querySelector(".left-side").childNodes;
+    let gridContainer = Array.from(
+      document.querySelector(".left-side").childNodes
+    );
     gridContainer.forEach((node) => {
       node.addEventListener("mouseover", () => {
         //look through the grid container array and grab the closest divs with the matching ending number
+        console.log(gridContainer);
         console.log(node);
         console.log(playerPiece);
       });
