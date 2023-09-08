@@ -30,9 +30,10 @@ let gameBoard = () => {
     gridContainer.forEach((node) => {
       node.addEventListener("mouseover", () => {
         //look through the grid container array and grab the closest divs with the matching ending number
-        console.log(gridContainer);
-        console.log(node);
-        console.log(playerPiece);
+        let test = gridContainer.filter(
+          (nodes) => nodes.className[1] === node.className[1]
+        );
+        console.log(test);
       });
     });
   };
@@ -41,8 +42,9 @@ let gameBoard = () => {
 
 let player = () => {
   let ships = [ship(1), ship(2), ship(3), ship(4), ship(5)];
+  let theShip = () => {};
   let attack = () => {};
-  return { ships, attack };
+  return { ships, attack, theShip };
 };
 
 function makeGrid() {
