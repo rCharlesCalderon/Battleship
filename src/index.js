@@ -29,11 +29,9 @@ let gameBoard = () => {
     );
     gridContainer.forEach((node) => {
       node.addEventListener("mouseover", () => {
-        //look through the grid container array and grab the closest divs with the matching ending number
-        let test = gridContainer.filter(
-          (nodes) => nodes.className[1] === node.className[1]
-        );
-        console.log(test);
+        let playerShip = playerPiece.theShip();
+
+        highlight(node, playerShip);
       });
     });
   };
@@ -41,11 +39,31 @@ let gameBoard = () => {
 };
 
 let player = () => {
-  let ships = [ship(1), ship(2), ship(3), ship(4), ship(5)];
-  let theShip = () => {};
+  let ships = [ship(3), ship(2), ship(3), ship(4), ship(5)];
+  let counter = 0;
+  let theShip = () => {
+    return ships[counter];
+  };
   let attack = () => {};
   return { ships, attack, theShip };
 };
+
+function highlight(node, playerShip) {
+  //node is the element/cell you are hovering ex: div A4,C3,D9 any of those
+  //playerShip is my player object
+  let gridContainer = Array.from(
+    document.querySelector(".left-side").childNodes
+  );
+  let shipLength = gridContainer.filter(
+    (nodes) => nodes.className.slice(1) === node.className.slice(1)
+  );
+  let highlightOver = shipLength.slice(
+    shipLength.indexOf(node),
+    playerShip.length
+  );
+  console.log(shipLength);
+  console.log(highlightOver);
+}
 
 function makeGrid() {
   let leftContainer = document.querySelector(".left-side");
