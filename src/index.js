@@ -49,7 +49,7 @@ let player = () => {
 };
 
 function highlight(node, playerShip) {
-  //node is the element/cell you are hovering ex: div A4,C3,D9 any of those divs
+  //node is the element/cell you are hovering ex: div A4,C3,D9 any of those
   //playerShip is my player object
   let gridContainer = Array.from(
     document.querySelector(".left-side").childNodes
