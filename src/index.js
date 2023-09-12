@@ -1,6 +1,6 @@
 import "./style.css";
 
-let ship = (length) => {
+let ship = (length, position) => {
   let hits = 0;
   let sunk = false;
 
@@ -16,7 +16,7 @@ let ship = (length) => {
     return false;
   }
 
-  return { length, hits, sunk, hit, isSunk };
+  return { length, position, hits, sunk, hit, isSunk };
 };
 
 let gameBoard = () => {
@@ -28,10 +28,13 @@ let gameBoard = () => {
       document.querySelector(".left-side").childNodes
     );
     gridContainer.forEach((node) => {
-      node.addEventListener("mouseover", () => {
+      node.addEventListener("mouseover", (event) => {
         let playerShip = playerPiece.theShip();
 
-        highlight(node, playerShip);
+        let hoverEvent = highlight(node, playerShip);
+
+        //while the mouse is over a node, color what is returned in the array from hoverEvent
+        console.log(hoverEvent);
       });
     });
   };
@@ -39,7 +42,13 @@ let gameBoard = () => {
 };
 
 let player = () => {
-  let ships = [ship(3), ship(2), ship(3), ship(4), ship(5)];
+  let ships = [
+    ship(3, "horizontal"),
+    ship(2, "vertical"),
+    ship(3, "vertical"),
+    ship(4, "vertical"),
+    ship(5, "vertical"),
+  ];
   let counter = 0;
   let theShip = () => {
     return ships[counter];
@@ -49,20 +58,32 @@ let player = () => {
 };
 
 function highlight(node, playerShip) {
+  let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
   //node is the element/cell you are hovering ex: div A4,C3,D9 any of those
   //playerShip is my player object
+  //let rowIndex = letters.indexOf(node.className[0]);
   let gridContainer = Array.from(
     document.querySelector(".left-side").childNodes
   );
-  let shipLength = gridContainer.filter(
+  let vertical = gridContainer.filter(
     (nodes) => nodes.className.slice(1) === node.className.slice(1)
   );
-  let highlightOver = shipLength.slice(
-    shipLength.indexOf(node),
-    playerShip.length
+  let horizontal = gridContainer.filter(
+    (nodes) => nodes.className[0] === node.className[0]
   );
-  console.log(shipLength);
-  console.log(highlightOver);
+  if (playerShip.position === "vertical") {
+    let verticalNodes = vertical.slice(
+      vertical.indexOf(node),
+      playerShip.length + vertical.indexOf(node)
+    );
+    return verticalNodes;
+  } else if (playerShip.position === "horizontal") {
+    let horizontalNodes = horizontal.slice(
+      horizontal.indexOf(node),
+      playerShip.length + horizontal.indexOf(node)
+    );
+    return horizontalNodes;
+  }
 }
 
 function makeGrid() {

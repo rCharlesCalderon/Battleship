@@ -40,3 +40,9 @@ body {
     height: 100%;
 border: 1px blueviolet solid;
 }
+.test:hover{
+    background: rebeccapurple;
+}
+.color {
+    background: red;
+}
