@@ -15,11 +15,11 @@ let gameBoard = () => {
   let initualizeBoard = (playerPiece) => {
     //place 5 ships on the board
     let gridContainer = Array.from(document.querySelector(".left-side").childNodes);
-    let playerShip = playerPiece.theShip();
+    let playerShip = playerPiece;
     
     //function that gets current cord based on where cursor hovers
-    hoverEffect(playerPiece)
-     placeAShip(playerPiece)
+    hoverEffect(playerShip)
+     placeAShip(playerShip)
     
      
 
