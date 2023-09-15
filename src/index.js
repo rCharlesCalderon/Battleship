@@ -39,10 +39,12 @@ function placeAShip(playerPiece){
         if(playerPiece.theShip().position === "horizontal"){
            let horizontal = gridContainer.filter((nodes) => nodes.className[0] === node.className[0] );
            let horizontalNodes = horizontal.slice(horizontal.indexOf(node),horizontal.indexOf(node) + playerPiece.theShip().length);
+           console.log(playerPiece)
            gameBoard().placeShip(horizontalNodes);
         }else if(playerPiece.theShip().position === "vertical"){
           let vertical = gridContainer.filter((nodes) => nodes.className.slice(1) === node.className.slice(1));
           let verticalNodes = vertical.slice(vertical.indexOf(node),playerPiece.theShip().length + vertical.indexOf(node));
+          console.log(playerPiece);
           gameBoard().placeShip(verticalNodes)
         }
       })
