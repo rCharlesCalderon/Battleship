@@ -8,6 +8,7 @@ export function addHoverEffect(nodes) {
 //Mouse leave event that will remove any color the mouse over event added
 export function removeHoverEffect(nodes) {
 nodes.forEach((element) => {
+  
   element.classList.remove("battleship-hover-class");
 });
 
@@ -26,14 +27,3 @@ export function makeGrid() {
   }
 }
 
-//node.addEventListener("mouseover", () => {
-  //coordinates.forEach((element) => {
-   // element.classList.add("battleship-hover-class");
-  //});
-//});
-
- //node.addEventListener("mouseleave", () => {
-   //coordinates.forEach((element) => {
-    // element.classList.remove("battleship-hover-class");
-   //});
- //});
