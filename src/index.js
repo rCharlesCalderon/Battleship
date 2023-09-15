@@ -1,107 +1,122 @@
+
+
+import { addHoverEffect } from "./DOM";
+import { removeHoverEffect } from "./DOM";
+import { makeGrid } from "./DOM";
+import { player } from "./factoryObjects";
 import "./style.css";
-
-let ship = (length, position) => {
-  let hits = 0;
-  let sunk = false;
-
-  function hit() {
-    this.hits++;
-    return this.hits;
-  }
-
-  function isSunk() {
-    if (this.length === this.count) {
-      this.sunk = true;
-    }
-    return false;
-  }
-
-  return { length, position, hits, sunk, hit, isSunk };
-};
 
 let gameBoard = () => {
   let missed = 0;
-  let placeShip = (coords) => {};
+  let placeShip = (coords) => {
+    coords.forEach((element) => {element.classList.add("battleship-placed");});
+  };
   let receiveAttack = () => {};
   let initualizeBoard = (playerPiece) => {
-    let gridContainer = Array.from(
-      document.querySelector(".left-side").childNodes
-    );
-    gridContainer.forEach((node) => {
-      node.addEventListener("mouseover", (event) => {
-        let playerShip = playerPiece.theShip();
+    //place 5 ships on the board
+    let gridContainer = Array.from(document.querySelector(".left-side").childNodes);
+    let playerShip = playerPiece.theShip();
+    
+    //function that gets current cord based on where cursor hovers
+    hoverEffect(playerPiece)
+     placeAShip(playerPiece)
+    
+     
 
-        let hoverEvent = highlight(node, playerShip);
-
-        //while the mouse is over a node, color what is returned in the array from hoverEvent
-        console.log(hoverEvent);
-      });
-    });
+   
+    
   };
   return { missed, placeShip, receiveAttack, initualizeBoard };
 };
 
-let player = () => {
-  let ships = [
-    ship(3, "horizontal"),
-    ship(2, "vertical"),
-    ship(3, "vertical"),
-    ship(4, "vertical"),
-    ship(5, "vertical"),
-  ];
-  let counter = 0;
-  let theShip = () => {
-    return ships[counter];
-  };
-  let attack = () => {};
-  return { ships, attack, theShip };
-};
 
-function highlight(node, playerShip) {
-  let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-  //node is the element/cell you are hovering ex: div A4,C3,D9 any of those
-  //playerShip is my player object
-  //let rowIndex = letters.indexOf(node.className[0]);
-  let gridContainer = Array.from(
-    document.querySelector(".left-side").childNodes
-  );
-  let vertical = gridContainer.filter(
-    (nodes) => nodes.className.slice(1) === node.className.slice(1)
-  );
-  let horizontal = gridContainer.filter(
-    (nodes) => nodes.className[0] === node.className[0]
-  );
-  if (playerShip.position === "vertical") {
-    let verticalNodes = vertical.slice(
-      vertical.indexOf(node),
-      playerShip.length + vertical.indexOf(node)
-    );
-    return verticalNodes;
-  } else if (playerShip.position === "horizontal") {
-    let horizontalNodes = horizontal.slice(
-      horizontal.indexOf(node),
-      playerShip.length + horizontal.indexOf(node)
-    );
-    return horizontalNodes;
-  }
+
+
+function placeAShip(playerPiece){
+   let gridContainer = Array.from(document.querySelector(".left-side").childNodes);
+    gridContainer.forEach((node)=>{
+      node.addEventListener("click",()=>{
+        if(playerPiece.theShip().position === "horizontal"){
+           let horizontal = gridContainer.filter((nodes) => nodes.className[0] === node.className[0] );
+           let horizontalNodes = horizontal.slice(horizontal.indexOf(node),horizontal.indexOf(node) + playerPiece.theShip().length);
+           gameBoard().placeShip(horizontalNodes);
+        }else if(playerPiece.theShip().position === "vertical"){
+          let vertical = gridContainer.filter((nodes) => nodes.className.slice(1) === node.className.slice(1));
+          let verticalNodes = vertical.slice(vertical.indexOf(node),playerPiece.theShip().length + vertical.indexOf(node));
+          gameBoard().placeShip(verticalNodes)
+        }
+      })
+    })
 }
 
-function makeGrid() {
-  let leftContainer = document.querySelector(".left-side");
-  let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-  let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
-  for (let l = 0; l < letters.length; l++) {
-    for (let n = 0; n < numbers.length; n++) {
-      let cells = document.createElement("div");
-      cells.classList.add(`${letters[l]}${numbers[n]}`);
-      leftContainer.appendChild(cells);
-    }
-  }
+function hoverEffect(playerPiece){
+  let gridContainer = Array.from(document.querySelector(".left-side").childNodes);
+  gridContainer.forEach((node) => {
+    node.addEventListener("mouseover", () => {
+   
+      
+
+      if(playerPiece.theShip().position === "horizontal"){
+          let horizontal = gridContainer.filter((nodes) => nodes.className[0] === node.className[0]);
+          let horizontalNodes = horizontal.slice(horizontal.indexOf(node),horizontal.indexOf(node) + playerPiece.theShip().length);
+         addHoverEffect(horizontalNodes)
+         node.addEventListener("mouseleave", () => {
+          removeHoverEffect(horizontalNodes)
+ });
+         
+      }else if(playerPiece.theShip().position === "vertical"){
+              let vertical = gridContainer.filter((nodes) => nodes.className.slice(1) === node.className.slice(1));
+              let verticalNodes = vertical.slice(vertical.indexOf(node),playerShip.theShip().length + vertical.indexOf(node));
+              
+              node.addEventListener("mouseleave", () => {
+                removeHoverEffect(verticalNodes);
+              });
+      }
+    });
+   
+  });
 }
+
+
+
+
+function addShip(node, getCoordinates) {
+  node.addEventListener("click", () => {
+    gameBoard().placeShip(getCoordinates);
+  });
+}
+
+
 
 let mainGame = (() => {
   makeGrid();
+  
   let playerBoard = gameBoard();
   let playerPiece = player();
+  //place 5 ships on the board
   playerBoard.initualizeBoard(playerPiece);
+
+ 
 })();
+
+
+
+function getShipCoords(node,playerShip) {
+  console.log(node)
+  
+  let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
+  let gridContainer = Array.from(document.querySelector(".left-side").childNodes);
+  let vertical = gridContainer.filter((nodes) => nodes.className.slice(1) === node.className.slice(1));
+  let horizontal = gridContainer.filter((nodes) => nodes.className[0] === node.className[0]);
+  
+  
+  if (playerShip.position === "vertical") {
+
+    let verticalNodes = vertical.slice(vertical.indexOf(node),playerShip.length + vertical.indexOf(node));
+    return verticalNodes;
+  } else if (playerShip.position === "horizontal") {
+
+    let horizontalNodes = horizontal.slice(horizontal.indexOf(node),playerShip.length + horizontal.indexOf(node));
+    return horizontalNodes;
+  }
+}

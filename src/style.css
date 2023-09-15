@@ -40,9 +40,17 @@ body {
     height: 100%;
 border: 1px blueviolet solid;
 }
-.test:hover{
-    background: rebeccapurple;
-}
+
 .color {
     background: red;
+}
+
+.battleship-hover-class{
+    background: red;
+}
+.battleship-placed{
+    background: lightslategray;
+}
+.green {
+    background: green;
 }
