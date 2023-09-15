@@ -22,15 +22,26 @@ export let ship = (length, position) => {
 export let player = () => {
   let ships = [
     ship(3, "horizontal"),
-    ship(2, "vertical"),
-    ship(3, "vertical"),
-    ship(4, "vertical"),
+    ship(2, "horizontal"),
+    ship(3, "horizontal"),
+    ship(4, "horizontal"),
     ship(5, "vertical"),
   ];
   let counter = 0;
   let theShip = () => {
-    return ships[counter];
+    return ships[counter]
+    
   };
+  let updateShip = ()=>{
+     return counter++
+  }
   let attack = () => {};
-  return { ships, attack, theShip };
+  let changePosition = ()=>{
+    if (ships[counter].position === "horizontal") {
+      ships[counter].position = "vertical";
+    } else if (ships[counter].position === "vertical") {
+      ships[counter].position = "horizontal";
+    }
+  }
+  return { ships, attack, theShip,updateShip,changePosition};
 };
