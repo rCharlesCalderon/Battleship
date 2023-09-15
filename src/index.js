@@ -54,20 +54,16 @@ function hoverEffect(playerPiece){
   gridContainer.forEach((node) => {
     node.addEventListener("mouseover", () => {
    
-      
-
-      if(playerPiece.theShip().position === "horizontal"){
+       if(playerPiece.theShip().position === "horizontal"){
           let horizontal = gridContainer.filter((nodes) => nodes.className[0] === node.className[0]);
           let horizontalNodes = horizontal.slice(horizontal.indexOf(node),horizontal.indexOf(node) + playerPiece.theShip().length);
          addHoverEffect(horizontalNodes)
          node.addEventListener("mouseleave", () => {
           removeHoverEffect(horizontalNodes)
  });
-         
-      }else if(playerPiece.theShip().position === "vertical"){
+         }else if(playerPiece.theShip().position === "vertical"){
               let vertical = gridContainer.filter((nodes) => nodes.className.slice(1) === node.className.slice(1));
-              let verticalNodes = vertical.slice(vertical.indexOf(node),playerShip.theShip().length + vertical.indexOf(node));
-              
+              let verticalNodes = vertical.slice(vertical.indexOf(node),playerPiece.theShip().length + vertical.indexOf(node));
               node.addEventListener("mouseleave", () => {
                 removeHoverEffect(verticalNodes);
               });
@@ -101,22 +97,3 @@ let mainGame = (() => {
 
 
 
-function getShipCoords(node,playerShip) {
-  console.log(node)
-  
-  let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-  let gridContainer = Array.from(document.querySelector(".left-side").childNodes);
-  let vertical = gridContainer.filter((nodes) => nodes.className.slice(1) === node.className.slice(1));
-  let horizontal = gridContainer.filter((nodes) => nodes.className[0] === node.className[0]);
-  
-  
-  if (playerShip.position === "vertical") {
-
-    let verticalNodes = vertical.slice(vertical.indexOf(node),playerShip.length + vertical.indexOf(node));
-    return verticalNodes;
-  } else if (playerShip.position === "horizontal") {
-
-    let horizontalNodes = horizontal.slice(horizontal.indexOf(node),playerShip.length + horizontal.indexOf(node));
-    return horizontalNodes;
-  }
-}
