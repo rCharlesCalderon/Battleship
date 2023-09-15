@@ -76,12 +76,13 @@ function hoverEffect(playerPiece){
                  
                  addHoverEffect(verticalNodes);
                  removeHoverEffect(horizontalNodes)
+                 
                   playerPiece.changePosition()
                   node.addEventListener('mouseleave',()=>{
                     removeHoverEffect(verticalNodes)
                   })
                }
-         
+         console.log(verticalNodes);
 
     
 
