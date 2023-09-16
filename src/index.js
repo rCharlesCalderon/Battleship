@@ -29,14 +29,16 @@ function placeAShip(playerPiece) {
   
   gridContainer.forEach((node) => {
     node.addEventListener("click", () => {
-      if (playerPiece.theShip().position === "horizontal") {
+        let vertical = gridContainer.filter((nodes) => nodes.className.slice(1) === node.className.slice(1));
+        let verticalNodes = vertical.slice(vertical.indexOf(node),playerPiece.theShip().length + vertical.indexOf(node));
         let horizontal = gridContainer.filter((nodes) => nodes.className[0] === node.className[0]);
-        let horizontalNodes = horizontal.slice( horizontal.indexOf(node),horizontal.indexOf(node) + playerPiece.theShip().length);
+        let horizontalNodes = horizontal.slice(horizontal.indexOf(node),horizontal.indexOf(node) + playerPiece.theShip().length);
+      if (playerPiece.theShip().position === "horizontal") {
+
         gameBoard().placeShip(horizontalNodes);
         playerPiece.updateShip()
       } else if (playerPiece.theShip().position === "vertical") {
-        let vertical = gridContainer.filter((nodes) => nodes.className.slice(1) === node.className.slice(1));
-        let verticalNodes = vertical.slice(vertical.indexOf(node),playerPiece.theShip().length + vertical.indexOf(node) );
+
         gameBoard().placeShip(verticalNodes);
         playerPiece.updateShip();
       }
@@ -55,6 +57,7 @@ function hoverEffect(playerPiece){
        let horizontal = gridContainer.filter((nodes) => nodes.className[0] === node.className[0]);
        let horizontalNodes = horizontal.slice(horizontal.indexOf(node),horizontal.indexOf(node) + playerPiece.theShip().length);
       node.addEventListener("mouseover", () => {
+        
           if (playerPiece.theShip().position === "horizontal") {
               addHoverEffect(horizontalNodes);
               console.log(playerPiece.theShip())
@@ -71,18 +74,25 @@ function hoverEffect(playerPiece){
       node.addEventListener("contextmenu", (event) => {
          event.preventDefault();
        
-
-               if(playerPiece.theShip().position === "horizontal"){
-                 
+        
+               if (playerPiece.theShip().position === "horizontal") {
+                 removeHoverEffect(horizontalNodes);
                  addHoverEffect(verticalNodes);
-                 removeHoverEffect(horizontalNodes)
-                 
-                  playerPiece.changePosition()
-                  node.addEventListener('mouseleave',()=>{
-                    removeHoverEffect(verticalNodes)
-                  })
+
+                 playerPiece.changePosition();
+                 node.addEventListener("mouseleave", () => {
+                   removeHoverEffect(verticalNodes);
+                 });
+               } else if (playerPiece.theShip().position === "vertical") {
+                 removeHoverEffect(verticalNodes);
+                 addHoverEffect(horizontalNodes);
+
+                 playerPiece.changePosition();
+                 node.addEventListener("mouseleave", () => {
+                   removeHoverEffect(horizontalNodes);
+                 });
                }
-         console.log(verticalNodes);
+        
 
     
 
@@ -107,5 +117,7 @@ let mainGame = (() => {
  
 })();
 
-
+//TODO 
+// stop the clicks from happening if any of the nodes in the array have a class 
+//stop the clicks from happening if the array of nodes doesnt match
 
