@@ -126,9 +126,7 @@ let mainGame = (() => {
   hoverEffect(playerPiece);
   changePosition(playerPiece);
   placeAShip(playerPiece);
-  if(playerPiece.theShip.length === 4){
-    console.log("yep")
-  }
+
  
 })();
 
