@@ -13,17 +13,7 @@ let gameBoard = () => {
     coords.forEach((element) => {element.classList.add("battleship-placed");});
   };
   let receiveAttack = () => {};
-  let initualizeBoard = (playerPiece) => {
-    //place 5 ships on the board
-    
-   
-     hoverEffect(playerPiece)
-     changePosition(playerPiece)
-     placeAShip(playerPiece)
-    
-     
-  };
-  return { missed, placeShip, receiveAttack, initualizeBoard };
+  return { missed, placeShip, receiveAttack };
 };
 function changePosition(playerPiece){
 let gridContainer = Array.from(document.querySelector(".left-side").childNodes);
@@ -130,13 +120,15 @@ function getHorizontalNodes(node, playerPiece) {
 
 
 let mainGame = (() => {
-  makeGrid();
-  
   let playerBoard = gameBoard();
   let playerPiece = player();
-  //place 5 ships on the board
-  playerBoard.initualizeBoard(playerPiece);
-
+  makeGrid();
+  hoverEffect(playerPiece);
+  changePosition(playerPiece);
+  placeAShip(playerPiece);
+  if(playerPiece.theShip.length === 4){
+    console.log("yep")
+  }
  
 })();
 
