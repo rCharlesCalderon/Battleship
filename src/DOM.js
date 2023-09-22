@@ -17,7 +17,7 @@ nodes.forEach((element) => {
 export function makeGrid() {
   let leftContainer = document.querySelector(".left-side");
   let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-  let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+  let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
   for (let l = 0; l < letters.length; l++) {
     for (let n = 0; n < numbers.length; n++) {
       let cells = document.createElement("div");

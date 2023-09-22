@@ -29,6 +29,7 @@ export let player = () => {
   ];
   let counter = 0;
   let theShip = () => {
+    
     return ships[counter]
     
   };
