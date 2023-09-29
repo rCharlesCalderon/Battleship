@@ -21,7 +21,7 @@ export let ship = (length, position) => {
 //player function factory
 export let player = () => {
   let ships = [
-    ship(3, "vertical"),
+    ship(3, "horizontal"),
     ship(2, "vertical"),
     ship(3, "vertical"),
     ship(4, "horizontal"),

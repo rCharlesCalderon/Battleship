@@ -1,6 +1,8 @@
 
 
 
+
+
 import { addHoverEffect } from "./DOM";
 import { removeHoverEffect } from "./DOM";
 import { makeGrid } from "./DOM";
@@ -98,8 +100,8 @@ function hoverEffect(playerPiece) {
 
 
 //verrtical is grabbing to much I think its grabbing 2 classes as expected from the slice()
-function getVerticalNodes(node, playerPiece) {
-  let gridContainer = Array.from(document.querySelector(".left-side").childNodes);
+function getVerticalNodes(node, playerPiece,container = "left-side") {
+  let gridContainer = Array.from(document.querySelector(`.${container}`).childNodes);
   if(playerPiece.theShip() !== undefined){
   let vertical = gridContainer.filter((nodes) => nodes.className[1] === node.className[1]);
   let verticalNodes = vertical.slice(vertical.indexOf(node),vertical.indexOf(node) + playerPiece.theShip().length);
@@ -107,8 +109,8 @@ function getVerticalNodes(node, playerPiece) {
   }
 }
 
-function getHorizontalNodes(node, playerPiece) {
-  let gridContainer = Array.from(document.querySelector(".left-side").childNodes);
+function getHorizontalNodes(node, playerPiece,container = "left-side") {
+  let gridContainer = Array.from(document.querySelector(`.${container}`).childNodes);
   if(playerPiece.theShip() !== undefined){
   let horizontal = gridContainer.filter((nodes) => nodes.className[0] === node.className[0]);
   let horizontalNodes = horizontal.slice(horizontal.indexOf(node),horizontal.indexOf(node) + playerPiece.theShip().length);
@@ -126,11 +128,60 @@ let mainGame = (() => {
   hoverEffect(playerPiece);
   changePosition(playerPiece);
   placeAShip(playerPiece);
-
- 
+  startEnemyBoard(playerPiece) 
 })();
 
-//TODO 
-// stop the clicks from happening if any of the nodes in the array have a class 
-//stop the clicks from happening if the array of nodes doesnt match
 
+function startEnemyBoard(playerPiece){
+  let leftContainer = document.querySelector('.left-side') 
+  let computerPiece = player()
+  let computerBoard = gameBoard()
+  leftContainer.addEventListener("click",()=>{
+    if(playerPiece.theShip() === undefined){
+      
+     //loop 5 times 
+     //randomNode check for validation 
+     for(let i = 0; i < computerPiece.ships.length; i++){
+       let randomNode = getRandomNode(computerPiece);
+       computerBoard.placeShip(randomNode);
+       computerPiece.updateShip()
+     }
+     
+    }
+  })
+}
+
+
+
+function getRandomNode(computerPiece){
+   let rightContainer = document.querySelector(".right-side").childNodes;
+  let randomIndex = Math.floor(Math.random() * rightContainer.length)
+  let vertical = getVerticalNodes(rightContainer[randomIndex], computerPiece, "right-side");
+  let horizontal = getHorizontalNodes(rightContainer[randomIndex],computerPiece,"right-side");
+  if(computerPiece.theShip().position == "vertical"){
+        if (vertical.length == computerPiece.theShip().length) {
+          return vertical;
+        } else {
+          return getRandomNode(computerPiece);
+        }
+  }else if(computerPiece.theShip().position == "horizontal"){
+    if (horizontal.length == computerPiece.theShip().length) {
+      return horizontal;
+    } else {
+      return getRandomNode(computerPiece);
+    }
+  }
+  
+   
+  
+
+  
+}
+function placeComptuerShips(){
+  let rightContainer = document.querySelector(".right-container")
+
+}
+//TODO 
+//WHEN ALL THE SHIPS ARE PLACED, START THE ENEMY BOARD 
+//ADD GRID TO THE RIGHT SIDE IN THE MAKEGRID FUNCTION FUCK IT 
+//ADD RANDOM SHIPS ON THE BOARD 
