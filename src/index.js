@@ -109,4 +109,3 @@ function getRandomNode(computerPiece){
 }
 
 //TODO 
-//stop error placeComputerShips, its returning undefinded 
