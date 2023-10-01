@@ -56,7 +56,7 @@ function startEnemyBoard(playerPiece,playerBoard,computerPiece,computerBoard){
     if(playerPiece.theShip() === undefined){
      placeComptuerShips(computerPiece,computerBoard)
      //hide battleship color on board, find a better way 
-     hideComputerShips()
+     //hideComputerShips()
      startAttackSeq(playerPiece,playerBoard,computerPiece,computerBoard)
     }
   })
