@@ -37,14 +37,10 @@ export let player = () => {
      return counter++
   }
   let attack = () => {
-    console.log("attacl")
+ 
   };
   let changePosition = ()=>{
-    if (ships[counter].position === "horizontal") {
-      ships[counter].position = "vertical";
-    } else if (ships[counter].position === "vertical") {
-      ships[counter].position = "horizontal";
-    }
+   
   }
   return { ships, attack, theShip,updateShip,changePosition};
 };
@@ -52,11 +48,20 @@ export let player = () => {
 
 export let gameBoard = () => {
   let missed = 0;
-  let placeShip = (coords) => {
-    coords.forEach((element) => {
-      element.classList.add("battleship-placed");
-    });
-  };
+   let getCoords = ()=> {}
+  let placeShip = () => {};
   let receiveAttack = () => {};
-  return { missed, placeShip, receiveAttack };
+  let coordinates = [
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", ""],
+  ];
+  return { missed, placeShip, receiveAttack,getCoords,coordinates};
 };
