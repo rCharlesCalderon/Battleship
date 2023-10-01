@@ -36,7 +36,9 @@ export let player = () => {
   let updateShip = ()=>{
      return counter++
   }
-  let attack = () => {};
+  let attack = () => {
+    console.log("attacl")
+  };
   let changePosition = ()=>{
     if (ships[counter].position === "horizontal") {
       ships[counter].position = "vertical";
@@ -45,4 +47,16 @@ export let player = () => {
     }
   }
   return { ships, attack, theShip,updateShip,changePosition};
+};
+
+
+export let gameBoard = () => {
+  let missed = 0;
+  let placeShip = (coords) => {
+    coords.forEach((element) => {
+      element.classList.add("battleship-placed");
+    });
+  };
+  let receiveAttack = () => {};
+  return { missed, placeShip, receiveAttack };
 };
