@@ -49,7 +49,12 @@ export let player = () => {
 export let gameBoard = () => {
   let missed = 0;
    let getCoords = ()=> {}
-  let placeShip = () => {};
+  let placeShip = (coord1,coord2,playerPiece) => {
+    coordinates[coord1].splice(coord2,1,playerPiece)
+    
+    console.log(coordinates)
+   
+  };
   let receiveAttack = () => {};
   let coordinates = [
     ["", "", "", "", "", "", "", "", "", ""],
@@ -61,7 +66,7 @@ export let gameBoard = () => {
     ["", "", "", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", "", "", ""],
     ["", "", "", "", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", "", "", "", "9"],
   ];
   return { missed, placeShip, receiveAttack,getCoords,coordinates};
 };
