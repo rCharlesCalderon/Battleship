@@ -24,20 +24,32 @@ function playerClicks(){
   let playerContainer = document.querySelector(".left-side").childNodes
   playerContainer.forEach((node)=>{
     node.addEventListener('click',()=>{
-      let coord1 = node.getAttribute("coordinate")[0];
-      let coord2 = node.getAttribute("coordinate")[1];
-      let playerPiece = displayContol.playerPiece;
-      displayContol.playerBoard.placeShip(coord1,coord2, playerPiece.theShip());
-      playerPiece.updateShip();
-    
-     
+      let x = node.getAttribute('coordinate')[0]
+      let y = node.getAttribute("coordinate")[1];
+      displayContol.playerBoard.placeShip(x,y,displayContol.playerPiece.theShip())
+      console.log(displayContol.playerBoard.coordinates)
+
     })
   })
 }
 
-function getNodes(){
-  if(displayContol.playerPiece.theShip().position === "vertical"){
-    displayContol.playerBoard.coordinates
+
+
+
+
+function getVerticalNodes(node, playerPiece, container = "left-side") {
+  let gridContainer = Array.from(
+    document.querySelector(`.${container}`).childNodes
+  );
+  if (playerPiece.theShip() !== undefined) {
+    let vertical = gridContainer.filter(
+      (nodes) => nodes.className[1] === node.className[1]
+    );
+    let verticalNodes = vertical.slice(
+      vertical.indexOf(node),
+      vertical.indexOf(node) + playerPiece.theShip().length
+    );
+    return verticalNodes;
   }
 }
 

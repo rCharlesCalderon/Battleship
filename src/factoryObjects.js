@@ -30,7 +30,7 @@ export let player = () => {
   let counter = 0;
   let theShip = () => {
     
-    return ships[counter]
+    return ships[counter++]
     
   };
   let updateShip = ()=>{
@@ -42,33 +42,44 @@ export let player = () => {
   let changePosition = ()=>{
    
   }
-  return { ships, attack, theShip,updateShip,changePosition};
+  let positions = []
+  return { ships, attack, theShip,updateShip,changePosition,positions};
 };
 
 
 export let gameBoard = () => {
+  let rows = 10 
+  let columns = 10 
   let missed = 0;
    let getCoords = ()=> {}
-  let placeShip = (coord1,coord2,playerPiece) => {
-    //arrays
-    //let copyOfArrray = coordinates.slice()
-    //let coordinate = copyOfArrray.splice(coord1,playerPiece.length);
-    //
-    coordinates[coord1].splice(coord2,1,playerPiece)
-    console.log(coordinates)
+  let placeShip = (x,y,ship) => {
+ 
+
+  for(let i = 0; i < coordinates.length; i++){
+    
+  for(let j = x; j < ship.length; j++){
+     coordinates[j][y] = ship;
+  }
+   
+  }
   };
   let receiveAttack = () => {};
-   let coordinates = [
-     ["0", "", "", "", "", "", "", "", "", ""],
-     ["1", "", "", "", "", "", "", "", "", ""],
-     ["2", "", "", "", "", "", "", "", "", ""],
-     ["3", "", "", "", "", "", "", "", "", ""],
-     ["4", "", "", "", "", "", "", "", "", ""],
-     ["5", "", "", "", "", "", "", "", "", ""],
-     ["6", "", "", "", "", "", "", "", "", ""],
-     ["7", "", "", "", "", "", "", "", "", ""],
-     ["8", "", "", "", "", "", "", "", "", ""],
-     ["9", "", "", "", "", "", "", "", "", ""],
-   ];
+  let coordinates = [];
+
+
+
+  for(let i = 0; i< rows; i++){
+    coordinates[i] = []
+    for(let j = 0; j < columns; j++){
+      coordinates[i].push("")
+     
+    }
+  }
+   
+   
+  
+
   return { missed, placeShip, receiveAttack,getCoords,coordinates};
 };
+
+
