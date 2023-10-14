@@ -32,7 +32,7 @@ function playerClicks(){
       }
     
     
-      
+     
       
         
   })
@@ -45,8 +45,10 @@ function checkArray(node){
   let y = parseInt(node.getAttribute("coordinate")[1]);
 
         for (let i = y; i < y + displayContol.playerPiece.checkShip().length; i++) {
-        if(displayContol.playerBoard.coordinates[x][i] !== ''){}
-            return false
+        if(displayContol.playerBoard.coordinates[x][i] !== ''){
+           return false;
+        }
+           
         }
 
         return true
