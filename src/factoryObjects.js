@@ -21,9 +21,9 @@ export let ship = (length, position) => {
 //player function factory
 export let player = () => {
   let ships = [
-    ship(3, "horizontal"),
-    ship(2, "vertical"),
-    ship(3, "vertical"),
+    ship(4, "horizontal"),
+    ship(4, "horizontal"),
+    ship(4, "horizontal"),
     ship(4, "horizontal"),
     ship(5, "vertical"),
   ];
@@ -33,17 +33,17 @@ export let player = () => {
     return ships[counter++]
     
   };
-  let updateShip = ()=>{
-     return counter++
-  }
+ 
   let attack = () => {
  
   };
   let changePosition = ()=>{
    
   }
-  let positions = []
-  return { ships, attack, theShip,updateShip,changePosition,positions};
+  let checkShip = ()=>{
+    return ships[counter]
+  }
+  return { ships, attack, theShip,changePosition,checkShip};
 };
 
 
@@ -51,35 +51,41 @@ export let gameBoard = () => {
   let rows = 10 
   let columns = 10 
   let missed = 0;
-   let getCoords = ()=> {}
-  let placeShip = (x,y,ship) => {
- 
-
-  for(let i = 0; i < coordinates.length; i++){
-    
-  for(let j = x; j < ship.length; j++){
-     coordinates[j][y] = ship;
-  }
-   
-  }
-  };
-  let receiveAttack = () => {};
+  
   let coordinates = [];
+  
+ 
+  let placeShip = (x, y, ship) => {
+    //horizontal
+    if(ship.position == "horizontal"){
+       for (let i = y; i < y + ship.length; i++) {
+         coordinates[x][i] = ship;
+       }
+    }
+    //vertically
+    if(ship.position == "vertical"){
+       for (let i = x; i < x + ship.length; i++) {
+         coordinates[i][y] = ship;
+       }
+    }
+   
+  };
+  
+  let receiveAttack = () => {};
+  
 
 
-
-  for(let i = 0; i< rows; i++){
-    coordinates[i] = []
-    for(let j = 0; j < columns; j++){
-      coordinates[i].push("")
-     
+  for (let i = 0; i < rows; i++) {
+    coordinates[i] = [];
+    for (let j = 0; j < columns; j++) {
+      coordinates[i].push("");
     }
   }
    
+
    
   
 
-  return { missed, placeShip, receiveAttack,getCoords,coordinates};
+  return { missed, placeShip, receiveAttack,coordinates};
 };
-
 

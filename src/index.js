@@ -1,3 +1,4 @@
+import { flatMap } from "lodash";
 import { gridLayout } from "./DOM";
 import { gameBoard, player } from "./factoryObjects";
 import "./style.css";
@@ -6,7 +7,8 @@ let displayContol = (() => {
   let playerBoard = gameBoard();
   let computer = player();
   let computerBoard = gameBoard();
-  return { playerPiece, playerBoard, computer, computerBoard };
+  let testt = undefined
+  return { playerPiece, playerBoard, computer, computerBoard,testt};
 })();
 
 function battleshipGame(){
@@ -24,18 +26,40 @@ function playerClicks(){
   let playerContainer = document.querySelector(".left-side").childNodes
   playerContainer.forEach((node)=>{
     node.addEventListener('click',()=>{
-      let x = node.getAttribute('coordinate')[0]
-      let y = node.getAttribute("coordinate")[1];
-      displayContol.playerBoard.placeShip(x,y,displayContol.playerPiece.theShip())
-      console.log(displayContol.playerBoard.coordinates)
-
-    })
+      if(displayContol.playerPiece.checkShip() !== undefined && checkArray(node)){
+       placeAPlayerShip(node);
+         
+      }
+    
+    
+      
+      
+        
+  })
   })
 }
 
+//check if there are objects in the array index
+function checkArray(node){
+  let x = parseInt(node.getAttribute("coordinate")[0]);
+  let y = parseInt(node.getAttribute("coordinate")[1]);
 
+        for (let i = y; i < y + displayContol.playerPiece.checkShip().length; i++) {
+        if(displayContol.playerBoard.coordinates[x][i] !== ''){}
+            return false
+        }
 
+        return true
+  }
 
+function placeAPlayerShip(node){
+  
+   let x = parseInt(node.getAttribute("coordinate")[0]);
+   let y = parseInt(node.getAttribute("coordinate")[1]);
+   displayContol.playerBoard.placeShip( x, y, displayContol.playerPiece.theShip());
+  console.log(displayContol.playerBoard.coordinates)
+  
+}
 
 function getVerticalNodes(node, playerPiece, container = "left-side") {
   let gridContainer = Array.from(
