@@ -21,9 +21,9 @@ export let ship = (length, position) => {
 //player function factory
 export let player = () => {
   let ships = [
-    ship(4, "horizontal"),
-    ship(4, "horizontal"),
-    ship(4, "horizontal"),
+    ship(3, "horizontal"),
+    ship(2, "vertical"),
+    ship(3, "vertical"),
     ship(4, "horizontal"),
     ship(5, "vertical"),
   ];
@@ -43,7 +43,7 @@ export let player = () => {
   let checkShip = ()=>{
     return ships[counter]
   }
-  return { ships, attack, theShip,changePosition,checkShip};
+  return { ships, attack, theShip,changePosition,checkShip,counter};
 };
 
 
