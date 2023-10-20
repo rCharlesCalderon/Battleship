@@ -64,7 +64,7 @@ export let gameBoard = () => {
     }else
     //vertically
     if(ship.position == "vertical"){
-      console.log(ship);
+    
        for (let i = x; i < x + ship.length; i++) {
         
          coordinates[i][y] = ship;
