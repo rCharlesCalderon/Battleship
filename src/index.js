@@ -12,31 +12,107 @@ let displayContol = (() => {
   return { playerPiece, playerBoard, computerPiece, computerBoard};
 })();
 
-(function battleshipGame(){
- 
-gridLayout()
-playerClicks()
-//EXECUTE PLACECOMPUTERSHIPS WHEN PLAYER HAS 5 ON THE BOARD
- window.addEventListener("click",()=>{
-  if(displayContol.playerPiece.counter == 5){
-    console.log("computer")
-    placeComputerShips()
-    window.removeEventListener("click",placeComputerShips);
-  }
- })
+(function battleshipGame() {
+  gridLayout();
+  playerClicks();
+  //EXECUTE PLACECOMPUTERSHIPS WHEN PLAYER HAS 5 ON THE BOARD then remove it
+
+window.addEventListener("click", handleComputerPlacement);
+window.addEventListener('click',handlePlayerAttackSequence)
+window.addEventListener('click',handleComputerAttackSequence)
+window.addEventListener('click',handleCheckForWinner)
+//work on winner
+
+})();
 
 
 
-})()
-
-
-
-function attackSequence(){
-  let container = document.querySelector('body')
-  container.addEventListener('click',()=>{
-    console.log("container")
-  })
+function checkForWinner() {
+ if(displayContol.computerPiece.ships.every(item => item.isSunk() === true)){
+  console.log('you won ')
+ }else if (displayContol.playerPiece.ships.every((item) => item.isSunk() === true)) {
+  console.log("computer won adwa")
+ }
 }
+
+
+
+function handleCheckForWinner(){
+  if(displayContol.playerPiece.counter === 5  && displayContol.computerPiece.counter === 5){
+    checkForWinner()
+    
+  }
+}
+
+
+function handleComputerAttackSequence(){
+  if(displayContol.playerPiece.counter === 5 && displayContol.computerPiece.counter === 5){
+    computerAttackSequence()
+    
+  }
+}
+
+function computerAttackSequence(){ 
+let playerContainer = document.querySelector('.left-side').childNodes
+let randomNumber = Math.floor(Math.random() * playerContainer.length);
+let node = playerContainer[randomNumber]
+     let x = node.getAttribute("coordinate")[0];
+     let y = node.getAttribute("coordinate")[1];
+     if (displayContol.playerBoard.coordinates[x][y] !== "" && !displayContol.playerBoard.coordinates[x][y].isSunk() ) {
+      console.log("computerr hit",node)
+      console.log(displayContol.playerBoard.coordinates)
+
+       displayContol.playerBoard.receiveAttack(x, y);
+     } else {
+      console.log("missed")
+       displayContol.playerBoard.missed++;
+     }
+      
+     
+}
+
+function PlayerattackSequence() {
+  //whos turn it is and allow the clicks,
+  console.log(displayContol.computerBoard.coordinates)
+  let computerContainer = document.querySelector(".right-side")
+  computerContainer.childNodes.forEach((node)=>{
+    node.addEventListener("click",()=>{
+      let x = node.getAttribute('coordinate')[0]
+      let y = node.getAttribute('coordinate')[1]
+    if (displayContol.computerBoard.coordinates[x][y] !== "" && !displayContol.computerBoard.coordinates[x][y].isSunk() ) {
+        displayContol.computerBoard.receiveAttack(x, y);
+      }else{
+        displayContol.computerBoard.missed++
+      }
+      
+    
+    })
+  })
+
+}
+
+
+
+
+
+function handlePlayerAttackSequence (){
+if(displayContol.playerPiece.counter && displayContol.computerPiece.counter == 5){
+  PlayerattackSequence()
+  window.removeEventListener("click",handlePlayerAttackSequence)
+}
+}
+
+
+function handleComputerPlacement () {
+  if (displayContol.playerPiece.counter == 5) {
+    placeComputerShips();
+    console.log(displayContol.computerBoard.coordinates,'computer')
+    window.removeEventListener("click", handleComputerPlacement);
+  }
+};
+
+
+
 //loop thorugh the 
 
 function playerClicks(){

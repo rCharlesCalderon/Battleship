@@ -18,7 +18,7 @@ export function gridLayout() {
     for (let n = 0; n < numbers.length; n++) {
       let cells = document.createElement("div");
       cells.classList.add(`${letters[l]}${numbers[n]}`);
-      cells.setAttribute("coordinate",`${numbers[n]}${numbers[n]}`)
+      cells.setAttribute("coordinate",`${numbers[l]}${numbers[n]}`)
       computerContainer.appendChild(cells);
     }
   }

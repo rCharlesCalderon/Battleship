@@ -9,8 +9,10 @@ export let ship = (length, position) => {
   }
 
   function isSunk() {
-    if (this.length === this.count) {
+    if (this.length === this.hits) {
+     
       this.sunk = true;
+      return true
     }
     return false;
   }
@@ -73,7 +75,11 @@ export let gameBoard = () => {
    
   };
   
-  let receiveAttack = () => {};
+  let receiveAttack = (x,y) => {
+    
+    coordinates[x][y].hit()
+    
+  };
   
 
 
