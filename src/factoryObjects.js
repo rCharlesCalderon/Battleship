@@ -40,7 +40,11 @@ export let player = () => {
  
   };
   let changePosition = ()=>{
-   
+   if (ships[counter].position === "vertical") {
+     ships[counter].position = "horizontal";
+   }else if(ships[counter].position === "horizontal"){
+    ships[counter].position = "vertical"
+   }
   }
   let checkShip = ()=>{
     return ships[counter]

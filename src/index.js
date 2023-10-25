@@ -15,23 +15,33 @@ let displayContol = (() => {
 (function battleshipGame() {
   gridLayout();
   playerClicks();
+  changeShipPosition()
   //EXECUTE PLACECOMPUTERSHIPS WHEN PLAYER HAS 5 ON THE BOARD then remove it
 
 window.addEventListener("click", handleComputerPlacement);
 window.addEventListener('click',handlePlayerAttackSequence)
 window.addEventListener('click',handleComputerAttackSequence)
 window.addEventListener('click',handleCheckForWinner)
-//work on winner
-
+window.addEventListener('click',handleCheckForSunkShips)
+//add the function of which ship sinks in the player clicks shit 
+console.log("ada")
 })();
+function handleCheckForSunkShips(){
 
-
+}
+function changeShipPosition(){
+  let computerContainer = document.querySelector('.left-side')
+  computerContainer.addEventListener("contextmenu",(e)=>{
+    e.preventDefault()
+    displayContol.playerPiece.changePosition()
+  })
+}
 
 function checkForWinner() {
  if(displayContol.computerPiece.ships.every(item => item.isSunk() === true)){
-  console.log('you won ')
- }else if (displayContol.playerPiece.ships.every((item) => item.isSunk() === true)) {
-  console.log("computer won adwa")
+
+ }else if (displayContol.playerPiece.ships.every(item => item.isSunk() === true)) {
+ 
  }
 }
 
@@ -59,12 +69,8 @@ let node = playerContainer[randomNumber]
      let x = node.getAttribute("coordinate")[0];
      let y = node.getAttribute("coordinate")[1];
      if (displayContol.playerBoard.coordinates[x][y] !== "" && !displayContol.playerBoard.coordinates[x][y].isSunk() ) {
-      console.log("computerr hit",node)
-      console.log(displayContol.playerBoard.coordinates)
-
-       displayContol.playerBoard.receiveAttack(x, y);
+        displayContol.playerBoard.receiveAttack(x, y);
      } else {
-      console.log("missed")
        displayContol.playerBoard.missed++;
      }
       
@@ -73,7 +79,6 @@ let node = playerContainer[randomNumber]
 
 function PlayerattackSequence() {
   //whos turn it is and allow the clicks,
-  console.log(displayContol.computerBoard.coordinates)
   let computerContainer = document.querySelector(".right-side")
   computerContainer.childNodes.forEach((node)=>{
     node.addEventListener("click",()=>{
@@ -106,7 +111,6 @@ if(displayContol.playerPiece.counter && displayContol.computerPiece.counter == 5
 function handleComputerPlacement () {
   if (displayContol.playerPiece.counter == 5) {
     placeComputerShips();
-    console.log(displayContol.computerBoard.coordinates,'computer')
     window.removeEventListener("click", handleComputerPlacement);
   }
 };
@@ -155,7 +159,6 @@ function placeComputerShips(){
           if (checkPlacement(computerNode, computerPiece, computerBoard)) {
             computerBoard.placeShip(x, y, computerPiece.theShip());
             computerPiece.counter++;
-            console.log(displayContol.computerBoard.coordinates, "window");
           }
 
           placeComputerShips();
@@ -202,7 +205,7 @@ function placeAPlayerShip(node){
    let x = parseInt(node.getAttribute("coordinate")[0]);
    let y = parseInt(node.getAttribute("coordinate")[1]);
    displayContol.playerBoard.placeShip( x, y, displayContol.playerPiece.theShip());
-  
+  console.log(displayContol.playerBoard.coordinates)
   
 }
 
