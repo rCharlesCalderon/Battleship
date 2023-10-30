@@ -23,8 +23,8 @@ export let ship = (length, position) => {
 //player function factory
 export let player = () => {
   let ships = [
-    ship(3, "horizontal"),
-    ship(2, "vertical"),
+    ship(3, "vertical"),
+    ship(2, "horizontal"),
     ship(3, "vertical"),
     ship(4, "horizontal"),
     ship(5, "vertical"),
@@ -82,7 +82,7 @@ export let gameBoard = () => {
   let receiveAttack = (x,y) => {
     
     coordinates[x][y].hit()
-    
+    console.log("hit")
   };
   
 

@@ -6,25 +6,34 @@ import { playerClicks } from "./gameLogic";
 import { changeShipPosition } from "./gameLogic";
 import { handleComputerPlacement } from "./gameLogic";
 import { handlePlayerAttackSequence } from "./gameLogic";
-import { handleComputerAttackSequence } from "./gameLogic";
 import { handleCheckForWinner } from "./gameLogic";
-
+import { changeHoverPosition } from "./DOM";
+import { displayContol } from "./gameLogic";
+import { placeShipsClass } from "./DOM";
 import "./style.css";
 //ORGINIZE CODE 
 //TAKE AWAY CLICKING OF NODE GRID
 
+import { hoverEffect } from "./DOM";
+function battleshipGame() {
+   gridLayout(); //DOM
 
-(function battleshipGame() {
-  gridLayout();
-  playerClicks();
-  changeShipPosition()
+ hoverEffect(); //DOM
+ changeShipPosition();// GAME LOGIC
+ changeHoverPosition(); // DOM
+ placeShipsClass(); // DOM
+
+ 
+
+  playerClicks();//GAME LOGIC
+
 window.addEventListener("click", handleComputerPlacement);
 window.addEventListener('click',handlePlayerAttackSequence)
-window.addEventListener('click',handleComputerAttackSequence)
 window.addEventListener('click',handleCheckForWinner)
 
-})();
 
 
+}
+battleshipGame()
 
 

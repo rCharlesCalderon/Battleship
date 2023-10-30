@@ -16,9 +16,11 @@ export function playerClicks() {
   let playerBoard = displayContol.playerBoard;
 
   playerContainer.childNodes.forEach((node) => {
-    node.addEventListener("click", () => {
+    node.addEventListener("click", function eventHandler(){
+      console.log(playerContainer)
       if (playerPiece.counter !== 5 && checkPlacement(node, playerPiece, playerBoard)) {
         placeAPlayerShip(node);
+
         displayContol.playerPiece.counter++;
       }
     });
@@ -28,11 +30,12 @@ export function playerClicks() {
 export function changeShipPosition() {
   let computerContainer = document.querySelector(".left-side");
   computerContainer.addEventListener("contextmenu", (e) => {
-    e.preventDefault();
-    console.log(displayContol.playerPiece);
+    e.preventDefault()
     if (displayContol.playerPiece.checkShip() !== undefined) {
       displayContol.playerPiece.changePosition();
+      console.log(displayContol.playerPiece.checkShip().position, "GAME.JS");
     }
+
   });
 }
 
@@ -40,6 +43,7 @@ export function handleComputerPlacement () {
   if (displayContol.playerPiece.counter == 5) {
     placeComputerShips();
     window.removeEventListener("click", handleComputerPlacement);
+    console.log(displayContol.computerBoard.coordinates,'computer')
   }
 };
 
@@ -87,8 +91,9 @@ export function checkPlacement(node, piece, board) {
   return true;
 }
 export function handlePlayerAttackSequence() {
-  if (displayContol.playerPiece.counter &&displayContol.computerPiece.counter == 5) {
+  if (displayContol.playerPiece.counter && displayContol.computerPiece.counter == 5) {
     playerAttackSequence();
+   
     window.removeEventListener("click", handlePlayerAttackSequence);
   }
 }
@@ -98,12 +103,14 @@ export function playerAttackSequence() {
   //whos turn it is and allow the clicks,
   let computerContainer = document.querySelector(".right-side");
   computerContainer.childNodes.forEach((node) => {
-    node.addEventListener("click", () => {
+    node.addEventListener("click",function eventHandler () {
       let x = node.getAttribute("coordinate")[0];
       let y = node.getAttribute("coordinate")[1];
       if ( displayContol.computerBoard.coordinates[x][y] !== "" && !displayContol.computerBoard.coordinates[x][y].isSunk()) {
         displayContol.computerBoard.receiveAttack(x, y);
+        node.removeEventListener("click", eventHandler);
         announceSunkShip(displayContol.computerBoard, x, y);
+        computerAttackSequence();
       } else {
         displayContol.computerBoard.missed++;
       }
@@ -112,6 +119,7 @@ export function playerAttackSequence() {
 }
 
 export function placeAPlayerShip(node) {
+ 
   let x = parseInt(node.getAttribute("coordinate")[0]);
   let y = parseInt(node.getAttribute("coordinate")[1]);
   displayContol.playerBoard.placeShip(x,y,displayContol.playerPiece.theShip());

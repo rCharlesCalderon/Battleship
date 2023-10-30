@@ -41,16 +41,11 @@ body {
 border: 1px blueviolet solid;
 }
 
-.color {
-    background: red;
-}
 
-.battleship-hover-class{
-    background: red;
-}
+
 .battleship-placed{
     background: lightslategray;
 }
-.green {
-    background: green;
+.battleship-hover{
+    background-color: green;
 }
