@@ -16,8 +16,8 @@ export let ship = (length, position) => {
     }
     return false;
   }
-
-  return { length, position, hits, sunk, hit, isSunk };
+ let shipNode = [];
+  return { length, position, hits, sunk, hit, isSunk,shipNode};
 };
 
 //player function factory
@@ -49,6 +49,7 @@ export let player = () => {
   let checkShip = ()=>{
     return ships[counter]
   }
+
   return { ships, attack, theShip,changePosition,checkShip,counter};
 };
 
@@ -95,7 +96,7 @@ export let gameBoard = () => {
   }
    
 
-   
+    
   
 
   return { missed, placeShip, receiveAttack,coordinates};

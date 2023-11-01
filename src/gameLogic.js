@@ -1,6 +1,5 @@
 import { player } from "./factoryObjects";
 import { gameBoard } from "./factoryObjects";
-
 export let displayContol = (() => {
   let playerPiece = player();
   let playerBoard = gameBoard();
@@ -17,10 +16,9 @@ export function playerClicks() {
 
   playerContainer.childNodes.forEach((node) => {
     node.addEventListener("click", function eventHandler(){
-      console.log(playerContainer)
       if (playerPiece.counter !== 5 && checkPlacement(node, playerPiece, playerBoard)) {
         placeAPlayerShip(node);
-
+        
         displayContol.playerPiece.counter++;
       }
     });
@@ -33,7 +31,7 @@ export function changeShipPosition() {
     e.preventDefault()
     if (displayContol.playerPiece.checkShip() !== undefined) {
       displayContol.playerPiece.changePosition();
-      console.log(displayContol.playerPiece.checkShip().position, "GAME.JS");
+     
     }
 
   });
@@ -108,13 +106,20 @@ export function playerAttackSequence() {
       let y = node.getAttribute("coordinate")[1];
       if ( displayContol.computerBoard.coordinates[x][y] !== "" && !displayContol.computerBoard.coordinates[x][y].isSunk()) {
         displayContol.computerBoard.receiveAttack(x, y);
-        node.removeEventListener("click", eventHandler);
-        announceSunkShip(displayContol.computerBoard, x, y);
         computerAttackSequence();
+        announceSunkShip(displayContol.computerBoard, x, y);
+        
       } else {
-        displayContol.computerBoard.missed++;
+         computerAttackSequence();
+        displayContol.computerBoard.missed++
+       
+        
+        
+        
       }
+       node.removeEventListener("click", eventHandler);
     });
+   
   });
 }
 
@@ -123,22 +128,23 @@ export function placeAPlayerShip(node) {
   let x = parseInt(node.getAttribute("coordinate")[0]);
   let y = parseInt(node.getAttribute("coordinate")[1]);
   displayContol.playerBoard.placeShip(x,y,displayContol.playerPiece.theShip());
-  console.log(displayContol.playerBoard.coordinates);
 }
 
 export function announceSunkShip(board, x, y) {
   if (board.coordinates[x][y].isSunk() === true) {
+    console.log(board.coordinates[x][y].shipNode,"node")
     console.log(board.coordinates[x][y], "is sunk");
   }
-  console.log(board.coordinates[x][y]);
+
 }
 
 export function handleComputerAttackSequence() {
   if (displayContol.playerPiece.counter === 5 && displayContol.computerPiece.counter === 5) {
+    console.log("reached 5")
     computerAttackSequence();
   }
 }
-
+//little buggy need, has a chance of attacking same node
 export function computerAttackSequence() {
   let playerContainer = document.querySelector(".left-side").childNodes;
   let randomNumber = Math.floor(Math.random() * playerContainer.length);
@@ -147,9 +153,12 @@ export function computerAttackSequence() {
   let y = node.getAttribute("coordinate")[1];
   if (displayContol.playerBoard.coordinates[x][y] !== "" && !displayContol.playerBoard.coordinates[x][y].isSunk() ) {
     displayContol.playerBoard.receiveAttack(x, y);
+    //ADD MARKER
     announceSunkShip(displayContol.playerBoard, x, y);
+     
   } else {
     displayContol.playerBoard.missed++;
+  
   }
 }
 

@@ -1,5 +1,6 @@
 import "./style.css";
-import { displayContol } from "./gameLogic";
+import { checkPlacement, displayContol } from "./gameLogic";
+
 
 
 export function gridLayout() {
@@ -73,7 +74,7 @@ export function changeHoverPosition(){
         setTimeout(() => {
           removeHoverEffect(horizontalNodes, verticalNodes);
           addHoverEffect(horizontalNodes, verticalNodes);
-          console.log(displayContol.playerPiece.checkShip().position, "DOM.JS");
+        
         }, 0);
         
        });
@@ -90,15 +91,15 @@ export function placeShipsClass(){
       let horizontalNodes = horizontalRows.slice(horizontalRows.indexOf(node),horizontalRows.indexOf(node) + displayContol.playerPiece.checkShip().length);
       let verticalColums = playerContainer.filter((nodes) => nodes.getAttribute("coordinate")[1] === node.getAttribute("coordinate")[1]);
       let verticalNodes = verticalColums.slice(verticalColums.indexOf(node),verticalColums.indexOf(node) + displayContol.playerPiece.checkShip().length)
-      
-          
-      
+     
         
-      if(displayContol.playerPiece.checkShip().position === "vertical" ){
+      if(displayContol.playerPiece.checkShip().position === "vertical"  && checkValidPlacement(verticalNodes) ){
+       
        verticalNodes.forEach((node)=>{
         node.classList.add("battleship-placed");
        })
-      }else if(displayContol.playerPiece.checkShip().position === "horizontal"){
+      }else if(displayContol.playerPiece.checkShip().position === "horizontal" && checkValidPlacement(horizontalNodes)){
+         
        horizontalNodes.forEach((node) => {
          node.classList.add("battleship-placed");
        });
@@ -106,4 +107,30 @@ export function placeShipsClass(){
     }
        });
     })
+
+    
+}
+
+export function domAttackMarker(){
+
+    
+
+}
+
+function checkValidPlacement(array){
+  if(array.length !== displayContol.playerPiece.checkShip().length){
+    return false
+  }
+const isBelowThreshold = (nodes) => {
+   if (nodes.classList.contains("battleship-placed") ) {
+     return false;
+   } else {
+     return true;
+   }
+}
+
+
+ return array.every(isBelowThreshold)
+    
+   
 }

@@ -5,47 +5,49 @@ body {
   justify-content: center;
   align-items: center;
   gap: 20px;
+  background-image: url(images/battleship-background2.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
-*{
-    border: 1px black solid;
+div{
+    border: 1px green solid;
+     box-shadow: 0 0 .2rem #fff,
+            0 0 .1rem #fff,
+            0 0 0.3rem #0FFF50,
+            0 0 0.3rem #0FFF50,
+            0 0 0.5rem #0FFF50,
+            inset 0 0 .1rem #0FFF50; 
+      
 }
 
 .left-side{
     display: grid;
-    height: 66%;
-    width: 40%;
+    height: 55%;
+    width: 35%;
      flex-direction: column;
       grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+      
 }
 
 .right-side{
     display: grid;
-    height: 66%;
-    width: 40%;
+    height: 55%;
+    width: 35%;
       grid-template: repeat(10, 1fr) / repeat(10, 1fr);
-      
-
-}
-.rows { 
-   display: grid;
-    grid-template-columns: repeat(10,1fr);
-}
-.columns {
-   height: 100%;
-    width: 100%;
+    
+  
 
 }
 
-.grid {
-    height: 100%;
-border: 1px blueviolet solid;
-}
 
 
 
 .battleship-placed{
-    background: lightslategray;
+    background: #00308f;
 }
 .battleship-hover{
-    background-color: green;
+    background-color: #00308F;
+}
+.marker{
+    background: red;
 }
