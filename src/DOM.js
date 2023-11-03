@@ -161,6 +161,10 @@ export function announceWinner(winner){
   announcement.classList.add("winner-blinker");
   announcement.textContent = `${winner}`;
   document.body.appendChild(announcement);
+
+  setTimeout(() => {
+    window.location.reload()
+  }, 4000);
 }
 export function loadShipStats(){
   let statContainer = document.querySelector(".stat-container");
