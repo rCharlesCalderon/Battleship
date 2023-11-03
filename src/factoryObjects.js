@@ -1,5 +1,5 @@
 // ship factory function
-export let ship = (length, position) => {
+export let ship = (name,length, position) => {
   let hits = 0;
   let sunk = false;
 
@@ -16,18 +16,18 @@ export let ship = (length, position) => {
     }
     return false;
   }
- let shipNode = [];
-  return { length, position, hits, sunk, hit, isSunk,shipNode};
+ 
+  return { name,length, position, hits, sunk, hit, isSunk};
 };
 
 //player function factory
 export let player = () => {
   let ships = [
-    ship(3, "vertical"),
-    ship(2, "horizontal"),
-    ship(3, "vertical"),
-    ship(4, "horizontal"),
-    ship(5, "vertical"),
+    ship("Cruiser", 3, "vertical"),
+    ship("Destroyer",2, "horizontal"),
+    ship("Submarine",3, "vertical"),
+    ship("Battleship",4, "horizontal"),
+    ship("Carrier",5, "vertical"),
   ];
   let counter = 0;
   let theShip = () => {

@@ -3,7 +3,9 @@ import { checkPlacement, displayContol } from "./gameLogic";
 
 
 
+
 export function gridLayout() {
+  let battleshipContainer = document.querySelector(".battleship-container")
   let playerContainer = document.querySelector(".left-side");
   let computerContainer = document.querySelector(".right-side");
   let letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
@@ -13,18 +15,20 @@ export function gridLayout() {
   for (let l = 0; l < letters.length; l++) {
     for (let n = 0; n < numbers.length; n++) {
       let cells = document.createElement("div");
-      cells.classList.add(`${letters[l]}${numbers[n]}`);
+      cells.classList.add(`grid`);
       cells.setAttribute("coordinate", `${numbers[l]}${numbers[n]}`);
       playerContainer.appendChild(cells);
+      battleshipContainer.appendChild(playerContainer)
     }
   }
   //computer grid, right one
   for (let l = 0; l < letters.length; l++) {
     for (let n = 0; n < numbers.length; n++) {
       let cells = document.createElement("div");
-      cells.classList.add(`${letters[l]}${numbers[n]}`);
+      cells.classList.add(`grid`);
       cells.setAttribute("coordinate",`${numbers[l]}${numbers[n]}`)
       computerContainer.appendChild(cells);
+      battleshipContainer.appendChild(computerContainer);
     }
   }
 }
@@ -111,9 +115,13 @@ export function placeShipsClass(){
     
 }
 
-export function domAttackMarker(){
+export function domAttackMarker(attack,node){
 
-    
+    if(attack == "hit"){
+      node.classList.add("hit-marker")
+    }else if(attack == "missed"){
+      node.classList.add("missed-marker")
+    }
 
 }
 
@@ -133,4 +141,79 @@ const isBelowThreshold = (nodes) => {
  return array.every(isBelowThreshold)
     
    
+}
+
+export function announceShip(ship){
+      let container = document.querySelector(".announcement-container");
+    container.innerHTML = `${ship.name} sunk!`;
+    container.classList.add("announcement-container");
+    setTimeout(() => {
+      container.innerHTML = '';
+       
+    }, 2000);
+  
+
+}
+
+export function announceWinner(winner){
+  document.body.innerHTML = " "
+  let announcement = document.createElement('span')
+  announcement.classList.add("winner-blinker");
+  announcement.textContent = `${winner}`;
+  document.body.appendChild(announcement);
+}
+export function loadShipStats(){
+  let statContainer = document.querySelector(".stat-container");
+  statContainer.style.visibility = "visible";
+  //PLAYER STATS
+let playerDestoyerHits = document.querySelector('.des-hits1')
+let playerDestoyerSunk = document.querySelector(".des-sunk1");
+playerDestoyerHits.textContent = displayContol.playerPiece.ships[1].hits;
+playerDestoyerSunk = displayContol.playerPiece.ships[1].sunk
+
+let playerSubHits = document.querySelector(".sub-hits1");
+let playerSubSunk = document.querySelector(".sub-sunk1");
+playerSubHits.textContent =  displayContol.playerPiece.ships[2].hits;
+playerSubSunk.textContent =  displayContol.playerPiece.ships[2].sunk;
+
+let playerCruHits = document.querySelector(".cru-hits1");
+let playerCruSunk = document.querySelector(".cru-sunk1");
+ playerCruHits.textContent = displayContol.playerPiece.ships[0].hits;
+ playerCruSunk.textContent = displayContol.playerPiece.ships[0].sunk;
+
+ let playerBatHits = document.querySelector(".bat-hits1");
+ let playerBatSunk = document.querySelector(".bat-sunk1");
+  playerBatHits.textContent = displayContol.playerPiece.ships[3].hits;
+  playerBatSunk.textContent = displayContol.playerPiece.ships[3].sunk;
+  
+  let playerCarHits = document.querySelector(".car-hits1");
+   let playerCarSunk = document.querySelector(".car-sunk1");
+  playerCarHits.textContent = displayContol.playerPiece.ships[4].hits;
+   playerCarSunk.textContent = displayContol.playerPiece.ships[4].sunk;
+//COMPUTER STATS 
+let computerDestoyerHits = document.querySelector(".des-hits2");
+let computerDestoyerSunk = document.querySelector(".des-sunk2");
+
+computerDestoyerHits.textContent = displayContol.computerPiece.ships[1].hits;
+computerDestoyerSunk.textContent = displayContol.computerPiece.ships[1].sunk;
+
+let computerSubHits = document.querySelector(".sub-hits2");
+let computerSubSunk = document.querySelector(".sub-sunk2");
+computerSubHits.textContent = displayContol.computerPiece.ships[2].hits;
+computerSubSunk.textContent = displayContol.computerPiece.ships[2].sunk;
+
+let computerCruHits = document.querySelector(".cru-hits2");
+let computerCruSunk = document.querySelector(".cru-sunk2");
+computerCruHits.textContent = displayContol.computerPiece.ships[0].hits;
+computerCruSunk.textContent = displayContol.computerPiece.ships[0].sunk;
+
+let computerBatHits = document.querySelector(".bat-hits2");
+let computerBatSunk = document.querySelector(".bat-sunk2");
+computerBatHits.textContent = displayContol.computerPiece.ships[3].hits;
+computerBatSunk.textContent = displayContol.computerPiece.ships[3].sunk;
+
+let computerCarHits = document.querySelector(".car-hits2");
+let computerCarSunk = document.querySelector(".car-sunk2");
+computerCarHits.textContent = displayContol.computerPiece.ships[4].hits;
+computerCarSunk.textContent = displayContol.computerPiece.ships[4].sunk;
 }

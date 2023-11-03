@@ -7,10 +7,11 @@ import { changeShipPosition } from "./gameLogic";
 import { handleComputerPlacement } from "./gameLogic";
 import { handlePlayerAttackSequence } from "./gameLogic";
 import { handleCheckForWinner } from "./gameLogic";
+import { handleBattleshipStats } from "./gameLogic";
 import { changeHoverPosition } from "./DOM";
-import { displayContol } from "./gameLogic";
+
 import { placeShipsClass } from "./DOM";
-import { handleComputerAttackSequence } from "./gameLogic";
+
 import "./style.css";
 //ORGINIZE CODE 
 //TAKE AWAY CLICKING OF NODE GRID
@@ -29,7 +30,7 @@ function battleshipGame() {
 
 window.addEventListener("click", handleComputerPlacement);
 window.addEventListener('click',handlePlayerAttackSequence)
-//window.addEventListener('click',handleComputerAttackSequence)
+window.addEventListener('click',handleBattleshipStats)
 window.addEventListener('click',handleCheckForWinner)
 
 
