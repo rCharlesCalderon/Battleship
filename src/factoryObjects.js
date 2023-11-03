@@ -23,11 +23,11 @@ export let ship = (name,length, position) => {
 //player function factory
 export let player = () => {
   let ships = [
-    ship("Cruiser", 3, "vertical"),
-    ship("Destroyer",2, "horizontal"),
-    ship("Submarine",3, "vertical"),
-    ship("Battleship",4, "horizontal"),
-    ship("Carrier",5, "vertical"),
+    ship("Cruiser", 3,"vertical"),
+    ship("Destroyer",2,"horizontal"),
+    ship("Submarine",3,"vertical"),
+    ship("Battleship",4,"horizontal"),
+    ship("Carrier",5,"vertical"),
   ];
   let counter = 0;
   let theShip = () => {
