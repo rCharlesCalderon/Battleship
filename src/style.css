@@ -1,56 +1,193 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+.battleship-container {
+    display: flex;
+    height: 60vh;
+    width: 60%;
+   gap: 30px;
+   
+}
+.announcement-container{
+    display: flex;
+      height: 10vh;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      font-size: 5.0em;
+font-weight: bold;
+letter-spacing: 3px;
+color: #B22222;
+animation: blinker 3s linear infinite;
+}
 body {
     display: flex;
     height: 100vh;
   background-color: grey;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  flex-direction: column;
+  background-image: url(images/battleship-background2.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  gap: 10px;
 }
-*{
-    border: 1px black solid;
+.grid{
+    border: 1px green solid;
+     box-shadow: 0 0 .2rem #fff,
+            0 0 .1rem #fff,
+            0 0 0.3rem #0FFF50,
+            0 0 0.3rem #0FFF50,
+            0 0 0.5rem #0FFF50,
+            inset 0 0 .1rem #0FFF50; 
+    
 }
 
 .left-side{
     display: grid;
-    height: 66%;
-    width: 40%;
+   
+    width: 50%;
      flex-direction: column;
       grid-template: repeat(10, 1fr) / repeat(10, 1fr);
+      
 }
 
 .right-side{
     display: grid;
-    height: 66%;
-    width: 40%;
+   
+    width: 50%;
       grid-template: repeat(10, 1fr) / repeat(10, 1fr);
-      
-
-}
-.rows { 
-   display: grid;
-    grid-template-columns: repeat(10,1fr);
-}
-.columns {
-   height: 100%;
-    width: 100%;
+    
+  
 
 }
 
-.grid {
-    height: 100%;
-border: 1px blueviolet solid;
-}
 
-.color {
-    background: red;
-}
 
-.battleship-hover-class{
-    background: red;
-}
+
 .battleship-placed{
-    background: lightslategray;
+    background-color: white;
 }
-.green {
-    background: green;
+.battleship-hover{
+    background-color: white;
+}
+.hit-marker{
+    background: white;
+}
+.missed-marker{
+    
+    background:red;
+}
+
+
+@keyframes blinker  {  
+  50% { opacity: 0; }
+}
+
+
+.stat-container {
+   visibility: hidden;
+    display: flex;
+   height: 29vh;
+   width: 100%;
+    justify-content: center;
+    gap: 10px;
+  
+}
+.player-stat-container{
+    display: grid;
+    border: 1px black solid;
+    width: 30%;
+    border-radius: 25px;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+  padding: 10px;
+  background: wheat;
+}
+.computer-stat-container{
+   display: grid;
+    border: 1px black solid;
+    width: 30%;
+    border-radius: 25px;
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+  padding: 10px;
+  background: wheat;
+  
+}
+.destoyer >:nth-child(1), .submarine >:nth-child(1), .cruiser >:nth-child(1), .battleship >:nth-child(1), .carrier >:nth-child(1){
+  font-weight: bold;
+}
+.destoyer{
+  display: flex;
+  
+   border-radius: 20px;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      padding-left: 10px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+.submarine{
+  display: flex;
+ border-radius: 20px;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      padding-left: 10px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+.cruiser{
+ display: flex;
+   border-radius: 20px;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      padding-left: 10px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+.battleship{
+  display: flex;
+ 
+   border-radius: 20px;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      padding-left: 10px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+.carrier{
+ display: flex;
+   
+   border-radius: 20px;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      padding-left: 10px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+.winner-blinker {
+  animation: blinker 2s linear infinite;
+  color: red;
+  font-size: 5em;
+  font-weight: bold;
 }
